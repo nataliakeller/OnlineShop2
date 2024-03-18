@@ -1,0 +1,23 @@
+﻿@using System.Timers
+
+<h3>@_text</h3>
+
+@code {
+    private System.Timers.Timer? _timer;
+    private string _text = string.Empty;
+
+    protected override void OnInitialized()
+    {
+        _text = DateTime.Now.ToString("HH:mm:ss");
+        _timer = new System.Timers.Timer(1000);
+        _timer.Elapsed += Timer_Elapsed;
+        _timer.Start();
+    }
+
+    protected void Timer_Elapsed(object? sender, ElapsedEventArgs e)
+    {
+        _text = DateTime.Now.ToString("HH:mm:ss");
+        InvokeAsync(StateHasChanged);
+
+    }
+}
